@@ -3,8 +3,8 @@
 An AI-powered weather chatbot built with HTML, CSS, JavaScript and the Google Gemini API.
 
 ## 🌐 Live Demo
-**[Click here to open the app]((https://github.com/abhinavnair557/weather-chatbot))**
-
+**[Click here to open the app](https://abhinavnair557.github.io/weather-chatbot)**
+*(Update this link after enabling GitHub Pages)*
 
 ## 💬 Features
 - Ask about weather in any city in the world
