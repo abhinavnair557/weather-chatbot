@@ -4,7 +4,7 @@ An AI-powered weather chatbot built with HTML, CSS, JavaScript and the Google Ge
 
 ## 🌐 Live Demo
 **[Click here to open the app](https://YOUR-USERNAME.github.io/weather-chatbot)**
-*(Update this link after enabling GitHub Pages)*
+
 
 ## 💬 Features
 - Ask about weather in any city in the world
@@ -35,6 +35,3 @@ weather-chatbot/
 
 ## 🌍 Deployment
 Hosted for free using **GitHub Pages**.
-
----
-*Built as a school project using AI tools.*
