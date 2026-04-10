@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SkyBot — Weather Forecast Chatbot</title>
+  <title>SkyBot — Weather Forecast</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,7 +34,6 @@
         radial-gradient(1px 1px at 70% 20%, rgba(255,255,255,0.5) 0%, transparent 100%),
         radial-gradient(1px 1px at 85% 55%, rgba(255,255,255,0.4) 0%, transparent 100%),
         radial-gradient(1.5px 1.5px at 92% 10%, rgba(255,255,255,0.6) 0%, transparent 100%),
-        radial-gradient(1px 1px at 55% 70%, rgba(255,255,255,0.3) 0%, transparent 100%),
         radial-gradient(1px 1px at 15% 80%, rgba(255,255,255,0.4) 0%, transparent 100%);
       pointer-events: none;
       z-index: 0;
@@ -58,66 +57,65 @@
       border: 1px solid rgba(56,189,248,0.2);
       border-bottom: none;
       border-radius: 20px 20px 0 0;
-      backdrop-filter: blur(12px);
     }
 
     .logo {
-      width: 44px;
-      height: 44px;
-      background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, #0ea5e9, #0369a1);
       border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
       box-shadow: 0 0 20px rgba(14,165,233,0.4);
     }
 
     .header-text h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
     .header-text p { font-size: 12px; color: #94a3b8; font-family: 'DM Mono', monospace; margin-top: 2px; }
-
     .status { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 11px; font-family: 'DM Mono', monospace; color: #22c55e; }
     .dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 6px #22c55e; animation: pulse 2s infinite; }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-    #chat {
-      height: 420px;
-      overflow-y: auto;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+    #search-area {
+      padding: 16px 20px;
       background: rgba(15,23,42,0.75);
       border-left: 1px solid rgba(56,189,248,0.2);
       border-right: 1px solid rgba(56,189,248,0.2);
-      scrollbar-width: thin;
-      scrollbar-color: #334155 transparent;
+      display: flex;
+      gap: 8px;
     }
 
-    #chat::-webkit-scrollbar { width: 4px; }
-    #chat::-webkit-scrollbar-thumb { background: #334155; border-radius: 2px; }
+    #city-input {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(56,189,248,0.25);
+      border-radius: 12px;
+      padding: 11px 16px;
+      font-size: 15px;
+      font-family: 'Syne', sans-serif;
+      color: #f8fafc;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    #city-input::placeholder { color: #475569; }
+    #city-input:focus { border-color: #38bdf8; }
 
-    .msg { display: flex; flex-direction: column; gap: 4px; max-width: 85%; animation: fadeUp 0.25s ease; }
-    .msg.user { align-self: flex-end; align-items: flex-end; }
-    .msg.bot { align-self: flex-start; align-items: flex-start; }
-
-    @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-
-    .label { font-size: 10px; font-family: 'DM Mono', monospace; letter-spacing: 0.08em; color: #94a3b8; text-transform: uppercase; }
-
-    .bubble { padding: 11px 16px; border-radius: 16px; font-size: 14px; line-height: 1.65; white-space: pre-wrap; }
-    .user .bubble { background: linear-gradient(135deg, #0ea5e9, #0369a1); color: #fff; border-bottom-right-radius: 4px; }
-    .bot .bubble { background: #1e293b; color: #f8fafc; border: 1px solid rgba(56,189,248,0.15); border-bottom-left-radius: 4px; }
-
-    .typing-dots { display: flex; gap: 5px; padding: 4px 0; }
-    .typing-dots span { width: 7px; height: 7px; border-radius: 50%; background: #38bdf8; animation: bounce 1.1s infinite; }
-    .typing-dots span:nth-child(2) { animation-delay: 0.18s; }
-    .typing-dots span:nth-child(3) { animation-delay: 0.36s; }
-    @keyframes bounce { 0%,70%,100%{transform:translateY(0);opacity:0.5} 35%{transform:translateY(-6px);opacity:1} }
+    #search-btn {
+      background: linear-gradient(135deg, #0ea5e9, #0369a1);
+      border: none;
+      border-radius: 12px;
+      padding: 11px 22px;
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Syne', sans-serif;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      white-space: nowrap;
+    }
+    #search-btn:hover { opacity: 0.9; transform: scale(1.02); }
+    #search-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
     #quick-wrap {
-      padding: 12px 20px 8px;
+      padding: 10px 20px;
       display: flex;
       flex-wrap: wrap;
       gap: 7px;
@@ -136,52 +134,124 @@
       color: #38bdf8;
       cursor: pointer;
       transition: all 0.15s;
-      white-space: nowrap;
     }
     .chip:hover { background: rgba(56,189,248,0.14); border-color: #38bdf8; }
 
-    #input-row {
-      display: flex;
-      gap: 8px;
-      padding: 14px 20px;
-      background: rgba(30,41,59,0.9);
-      border: 1px solid rgba(56,189,248,0.2);
-      border-top: 1px solid rgba(56,189,248,0.1);
+    #results {
+      min-height: 320px;
+      padding: 20px;
+      background: rgba(15,23,42,0.75);
+      border-left: 1px solid rgba(56,189,248,0.2);
+      border-right: 1px solid rgba(56,189,248,0.2);
+      border-bottom: 1px solid rgba(56,189,248,0.2);
       border-radius: 0 0 20px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
-    #user-input {
-      flex: 1;
-      background: rgba(15,23,42,0.8);
+    .placeholder { text-align: center; color: #334155; }
+    .placeholder .big { font-size: 48px; margin-bottom: 12px; }
+    .placeholder p { font-size: 14px; font-family: 'DM Mono', monospace; }
+
+    .current-card {
+      width: 100%;
+      background: rgba(30,41,59,0.7);
+      border: 1px solid rgba(56,189,248,0.2);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      animation: fadeUp 0.3s ease;
+    }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+    .weather-icon { font-size: 56px; flex-shrink: 0; }
+    .current-info { flex: 1; }
+    .city-name { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+    .country { font-size: 13px; color: #94a3b8; font-family: 'DM Mono', monospace; margin-top: 2px; }
+    .temp { font-size: 48px; font-weight: 700; line-height: 1; margin: 8px 0 4px; color: #38bdf8; }
+    .desc { font-size: 14px; color: #94a3b8; text-transform: capitalize; }
+
+    .current-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; flex-shrink: 0; }
+
+    .meta-item {
+      background: rgba(15,23,42,0.6);
+      border: 1px solid rgba(56,189,248,0.1);
+      border-radius: 10px;
+      padding: 10px 14px;
+      text-align: center;
+    }
+    .meta-label { font-size: 10px; font-family: 'DM Mono', monospace; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; }
+    .meta-val { font-size: 15px; font-weight: 600; margin-top: 3px; color: #e2e8f0; }
+
+    .tip-bar {
+      width: 100%;
+      background: rgba(56,189,248,0.08);
       border: 1px solid rgba(56,189,248,0.2);
       border-radius: 12px;
-      padding: 10px 16px;
-      font-size: 14px;
-      font-family: 'Syne', sans-serif;
-      color: #f8fafc;
-      outline: none;
-      transition: border-color 0.15s;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #7dd3fc;
+      margin-bottom: 16px;
+      font-family: 'DM Mono', monospace;
+      animation: fadeUp 0.4s ease;
     }
-    #user-input::placeholder { color: #94a3b8; }
-    #user-input:focus { border-color: #38bdf8; }
 
-    #send-btn {
-      background: linear-gradient(135deg, #0ea5e9, #0369a1);
-      border: none;
+    .forecast-title {
+      width: 100%;
+      font-size: 12px;
+      font-family: 'DM Mono', monospace;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .forecast-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      animation: fadeUp 0.5s ease;
+    }
+
+    .forecast-card {
+      background: rgba(30,41,59,0.6);
+      border: 1px solid rgba(56,189,248,0.12);
       border-radius: 12px;
-      padding: 10px 20px;
-      color: white;
-      font-size: 14px;
-      font-weight: 600;
-      font-family: 'Syne', sans-serif;
-      cursor: pointer;
-      transition: opacity 0.15s, transform 0.1s;
+      padding: 12px 8px;
+      text-align: center;
     }
-    #send-btn:hover { opacity: 0.9; transform: scale(1.02); }
-    #send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .fc-day { font-size: 11px; font-family: 'DM Mono', monospace; color: #64748b; margin-bottom: 6px; }
+    .fc-icon { font-size: 24px; margin-bottom: 6px; }
+    .fc-high { font-size: 15px; font-weight: 600; color: #f8fafc; }
+    .fc-low { font-size: 12px; color: #64748b; margin-top: 2px; }
 
-    .footer { text-align: center; font-size: 11px; font-family: 'DM Mono', monospace; color: #334155; margin-top: 12px; }
-    .footer a { color: #334155; }
+    .error-msg { text-align: center; color: #f87171; font-family: 'DM Mono', monospace; font-size: 13px; padding: 20px; }
+
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid rgba(56,189,248,0.2);
+      border-top-color: #38bdf8;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .footer { text-align: center; font-size: 11px; font-family: 'DM Mono', monospace; color: #1e293b; margin-top: 12px; }
+
+    @media (max-width: 500px) {
+      .current-card { flex-direction: column; text-align: center; }
+      .current-meta { grid-template-columns: repeat(4, 1fr); }
+      .forecast-grid { gap: 4px; }
+      .forecast-card { padding: 8px 4px; }
+      .fc-high { font-size: 13px; }
+    }
   </style>
 </head>
 <body>
@@ -191,125 +261,173 @@
     <div class="logo">⛅</div>
     <div class="header-text">
       <h1>SkyBot</h1>
-      <p>weather forecast assistant · powered by Gemini</p>
+      <p>real-time weather forecast</p>
     </div>
-    <div class="status"><div class="dot"></div>online</div>
+    <div class="status"><div class="dot"></div>live</div>
   </div>
 
-  <div id="chat"></div>
+  <div id="search-area">
+    <input id="city-input" type="text" placeholder="Enter any city — Chennai, London, Tokyo..." />
+    <button id="search-btn" onclick="searchWeather()">Search ↗</button>
+  </div>
 
   <div id="quick-wrap">
-    <button class="chip" onclick="sendQuick('Weather in Chennai today')">Chennai today</button>
-    <button class="chip" onclick="sendQuick('Will it rain in Mumbai this week?')">Mumbai rain?</button>
-    <button class="chip" onclick="sendQuick('Best time to visit Manali?')">Manali travel</button>
-    <button class="chip" onclick="sendQuick('What to wear in Delhi this weekend?')">Delhi outfit tips</button>
-    <button class="chip" onclick="sendQuick('Weather in London right now')">London now</button>
+    <button class="chip" onclick="quickSearch('Chennai')">Chennai</button>
+    <button class="chip" onclick="quickSearch('Mumbai')">Mumbai</button>
+    <button class="chip" onclick="quickSearch('Delhi')">Delhi</button>
+    <button class="chip" onclick="quickSearch('Bangalore')">Bangalore</button>
+    <button class="chip" onclick="quickSearch('London')">London</button>
+    <button class="chip" onclick="quickSearch('Tokyo')">Tokyo</button>
+    <button class="chip" onclick="quickSearch('New York')">New York</button>
   </div>
 
-  <div id="input-row">
-    <input id="user-input" type="text" placeholder="Ask about weather anywhere in the world..." />
-    <button id="send-btn" onclick="sendMessage()">Send ↗</button>
+  <div id="results">
+    <div class="placeholder">
+      <div class="big">🌍</div>
+      <p>search any city to get live weather</p>
+    </div>
   </div>
 </div>
 
-<div class="footer">Built with Gemini AI · <a href="https://github.com" target="_blank">View on GitHub</a></div>
+<div class="footer">powered by open-meteo · 100% free · no api key needed</div>
 
 <script>
-  const API_KEY = 'AIzaSyBImjTI--l2uwxfHBth2hfCoPccL9N8gD4';
-  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+  const cityInput = document.getElementById('city-input');
+  const resultsEl = document.getElementById('results');
+  const searchBtn = document.getElementById('search-btn');
 
-  const SYSTEM = `You are SkyBot, a friendly weather forecast chatbot. When users ask about weather, provide:
-- Current conditions and temperature (use your knowledge of typical weather patterns and seasons)
-- Today's expected high/low
-- A short 3-day forecast if relevant
-- One practical tip (umbrella, jacket, sunscreen, etc.)
-Use minimal weather emoji (☀️ 🌧️ ❄️ 🌤️ ⛅ 🌩️). Be concise, warm, and helpful. If asked about non-weather topics, politely redirect to weather questions.`;
+  const WMO = {
+    0:  ['☀️','Clear sky'],
+    1:  ['🌤️','Mainly clear'], 2: ['⛅','Partly cloudy'], 3: ['☁️','Overcast'],
+    45: ['🌫️','Foggy'], 48: ['🌫️','Icy fog'],
+    51: ['🌦️','Light drizzle'], 53: ['🌦️','Drizzle'], 55: ['🌧️','Heavy drizzle'],
+    61: ['🌧️','Light rain'], 63: ['🌧️','Rain'], 65: ['🌧️','Heavy rain'],
+    71: ['🌨️','Light snow'], 73: ['❄️','Snow'], 75: ['❄️','Heavy snow'],
+    80: ['🌦️','Rain showers'], 81: ['🌧️','Heavy showers'], 82: ['⛈️','Violent showers'],
+    95: ['⛈️','Thunderstorm'], 96: ['⛈️','Thunderstorm with hail'], 99: ['⛈️','Heavy thunderstorm']
+  };
 
-  const history = [];
-  const chatEl = document.getElementById('chat');
-  const inputEl = document.getElementById('user-input');
-  const sendBtn = document.getElementById('send-btn');
+  const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
-  function addMessage(role, text) {
-    const wrap = document.createElement('div');
-    wrap.className = `msg ${role}`;
-    const label = document.createElement('div');
-    label.className = 'label';
-    label.textContent = role === 'user' ? 'You' : 'SkyBot';
-    const bubble = document.createElement('div');
-    bubble.className = 'bubble';
-    bubble.textContent = text;
-    wrap.appendChild(label);
-    wrap.appendChild(bubble);
-    chatEl.appendChild(wrap);
-    chatEl.scrollTop = chatEl.scrollHeight;
+  function getTip(code, temp) {
+    if (code >= 95) return '⚡ Thunderstorm alert — stay indoors and avoid open areas.';
+    if (code >= 61) return '☔ Rain expected — carry an umbrella today!';
+    if (code >= 51) return '🌂 Light drizzle possible — a light jacket or umbrella would help.';
+    if (code >= 71) return '🧥 Snow ahead — wear warm layers and waterproof boots.';
+    if (code === 45 || code === 48) return '🌫️ Foggy conditions — drive carefully and allow extra travel time.';
+    if (temp >= 35) return '🥵 Very hot today — stay hydrated and avoid going out midday.';
+    if (temp >= 28) return '😎 Warm and pleasant — light clothes and sunscreen recommended.';
+    if (temp <= 10) return '🧣 Cold outside — bundle up with a coat and scarf.';
+    return '🌤️ Decent weather today — a good day to head out!';
   }
 
-  function addTyping() {
-    const wrap = document.createElement('div');
-    wrap.id = 'typing';
-    wrap.className = 'msg bot';
-    const label = document.createElement('div');
-    label.className = 'label';
-    label.textContent = 'SkyBot';
-    const bubble = document.createElement('div');
-    bubble.className = 'bubble';
-    bubble.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
-    wrap.appendChild(label);
-    wrap.appendChild(bubble);
-    chatEl.appendChild(wrap);
-    chatEl.scrollTop = chatEl.scrollHeight;
-    return wrap;
+  function showLoading() {
+    resultsEl.innerHTML = '<div class="spinner"></div>';
+    resultsEl.style.justifyContent = 'center';
   }
 
-  async function callGemini(userText) {
-    history.push({ role: 'user', parts: [{ text: userText }] });
-
-    const body = {
-      system_instruction: { parts: [{ text: SYSTEM }] },
-      contents: history
-    };
-
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    });
-
-    const data = await res.json();
-    if (data.error) throw new Error(data.error.message);
-
-    const reply = data.candidates[0].content.parts[0].text.trim();
-    history.push({ role: 'model', parts: [{ text: reply }] });
-    return reply;
+  function showError(msg) {
+    resultsEl.innerHTML = `<div class="error-msg">⚠️ ${msg}</div>`;
   }
 
-  async function sendMessage() {
-    const text = inputEl.value.trim();
-    if (!text) return;
-    inputEl.value = '';
-    sendBtn.disabled = true;
-    document.getElementById('quick-wrap').style.display = 'none';
-    addMessage('user', text);
-    const typing = addTyping();
+  async function searchWeather() {
+    const city = cityInput.value.trim();
+    if (!city) return;
+    showLoading();
+    searchBtn.disabled = true;
 
     try {
-      const reply = await callGemini(text);
-      typing.remove();
-      addMessage('bot', reply);
+      const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=en&format=json`);
+      const geoData = await geoRes.json();
+
+      if (!geoData.results || geoData.results.length === 0) {
+        showError(`City "${city}" not found. Try a different spelling.`);
+        searchBtn.disabled = false;
+        return;
+      }
+
+      const loc = geoData.results[0];
+      const { latitude, longitude, name, country } = loc;
+
+      const wxRes = await fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}` +
+        `&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weathercode` +
+        `&daily=weathercode,temperature_2m_max,temperature_2m_min` +
+        `&timezone=auto&forecast_days=5`
+      );
+      const wx = await wxRes.json();
+
+      const cur = wx.current;
+      const daily = wx.daily;
+      const temp = Math.round(cur.temperature_2m);
+      const code = cur.weathercode;
+      const humidity = cur.relative_humidity_2m;
+      const wind = Math.round(cur.wind_speed_10m);
+      const [icon, desc] = WMO[code] || ['🌡️', 'Unknown'];
+      const tip = getTip(code, temp);
+
+      const forecastCards = daily.time.map((date, i) => {
+        const d = new Date(date);
+        const dayLabel = i === 0 ? 'Today' : DAYS[d.getDay()];
+        const [fIcon] = WMO[daily.weathercode[i]] || ['🌡️'];
+        const hi = Math.round(daily.temperature_2m_max[i]);
+        const lo = Math.round(daily.temperature_2m_min[i]);
+        return `
+          <div class="forecast-card">
+            <div class="fc-day">${dayLabel}</div>
+            <div class="fc-icon">${fIcon}</div>
+            <div class="fc-high">${hi}°</div>
+            <div class="fc-low">${lo}°</div>
+          </div>`;
+      }).join('');
+
+      resultsEl.style.justifyContent = 'flex-start';
+      resultsEl.innerHTML = `
+        <div class="current-card">
+          <div class="weather-icon">${icon}</div>
+          <div class="current-info">
+            <div class="city-name">${name}</div>
+            <div class="country">${country}</div>
+            <div class="temp">${temp}°C</div>
+            <div class="desc">${desc}</div>
+          </div>
+          <div class="current-meta">
+            <div class="meta-item">
+              <div class="meta-label">Humidity</div>
+              <div class="meta-val">${humidity}%</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Wind</div>
+              <div class="meta-val">${wind} km/h</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">High</div>
+              <div class="meta-val">${Math.round(daily.temperature_2m_max[0])}°</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Low</div>
+              <div class="meta-val">${Math.round(daily.temperature_2m_min[0])}°</div>
+            </div>
+          </div>
+        </div>
+        <div class="tip-bar">💡 ${tip}</div>
+        <div class="forecast-title">5-day forecast</div>
+        <div class="forecast-grid">${forecastCards}</div>
+      `;
+
     } catch (e) {
-      typing.remove();
-      addMessage('bot', 'Sorry, something went wrong. Please try again! (' + e.message + ')');
+      showError('Could not fetch weather. Check your internet connection.');
     }
 
-    sendBtn.disabled = false;
-    inputEl.focus();
+    searchBtn.disabled = false;
   }
 
-  function sendQuick(text) { inputEl.value = text; sendMessage(); }
-  inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
+  function quickSearch(city) {
+    cityInput.value = city;
+    searchWeather();
+  }
 
-  addMessage('bot', "Hi! I'm SkyBot ⛅ Ask me about weather anywhere in the world — current conditions, forecasts, or travel tips!");
+  cityInput.addEventListener('keydown', e => { if (e.key === 'Enter') searchWeather(); });
 </script>
 </body>
 </html>
