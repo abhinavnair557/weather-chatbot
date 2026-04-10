@@ -1,29 +1,27 @@
-# ⛅ SkyBot — Weather Forecast Chatbot
+# ⛅ SkyBot — Weather Forecast App
 
-An AI-powered weather chatbot built with HTML, CSS, JavaScript and the Google Gemini API.
+A real-time weather forecast app built with HTML, CSS, and JavaScript using the free Open-Meteo API.
 
 ## 🌐 Live Demo
 **[Click here to open the app](https://abhinavnair557.github.io/weather-chatbot)**
 
-
 ## 💬 Features
-- Ask about weather in any city in the world
-- Conversational AI responses powered by Google Gemini
-- Current conditions, forecasts, and outfit/travel tips
-- Clean, modern dark UI
-- Works on mobile and desktop
-- No installation needed — just open and chat!
+- 🌍 Real live weather for any city in the world
+- 🌡️ Current temperature, humidity, wind speed
+- 📅 5-day forecast
+- 💡 Smart tips — umbrella, outfit, hydration reminders
+- 📱 Works on mobile and desktop
+- ⚡ 100% free — no API key, no sign-up, no limits
 
 ## 🚀 How to Use
-Just open the live link above and start chatting! Try asking:
-- *"What's the weather in Chennai today?"*
-- *"Will it rain in Mumbai this week?"*
-- *"What should I wear in London tomorrow?"*
-- *"Best time to visit Manali?"*
+Just open the live link and type any city name! Or click a quick button:
+- Chennai, Mumbai, Delhi, Bangalore
+- London, Tokyo, New York, and more!
 
 ## 🛠️ Tech Stack
-- HTML / CSS / JavaScript (no frameworks)
-- [Google Gemini API](https://aistudio.google.com) (gemini-2.0-flash)
+- HTML / CSS / JavaScript (no frameworks, no libraries)
+- [Open-Meteo API](https://open-meteo.com) — free weather data
+- [Open-Meteo Geocoding API](https://open-meteo.com/en/docs/geocoding-api) — city search
 - Google Fonts — Syne + DM Mono
 
 ## 📁 Project Structure
@@ -34,4 +32,7 @@ weather-chatbot/
 ```
 
 ## 🌍 Deployment
-Hosted for free using **GitHub Pages**.
+Hosted for free using **GitHub Pages** — no server needed.
+
+## 🔓 No API Key Required
+This app uses Open-Meteo, which is completely free and open-source with no authentication needed.
